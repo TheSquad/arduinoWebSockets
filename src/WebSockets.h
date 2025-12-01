@@ -44,11 +44,10 @@
 
 #ifndef NODEBUG_WEBSOCKETS
 #ifdef DEBUG_ESP_PORT
-#define DEBUG_WEBSOCKETS(...)               \
-    {                                       \
-        DEBUG_ESP_PORT.printf(__VA_ARGS__); \
-        DEBUG_ESP_PORT.flush();             \
-    }
+#define DEBUG_WEBSOCKETS(...)                        \
+do {                                                 \
+    ESP_LOGI("WEBSOCKETS", __VA_ARGS__);             \
+} while (0)
 #else
 // #define DEBUG_WEBSOCKETS(...) os_printf( __VA_ARGS__ )
 #endif
@@ -63,7 +62,7 @@
 
 #if defined(ESP8266) || defined(ESP32)
 
-#define WEBSOCKETS_MAX_DATA_SIZE (15 * 1024)
+#define WEBSOCKETS_MAX_DATA_SIZE (150 * 1024 * 2)
 #define WEBSOCKETS_USE_BIG_MEM
 #define GET_FREE_HEAP ESP.getFreeHeap()
 // moves all Header strings to Flash (~300 Byte)

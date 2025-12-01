@@ -431,9 +431,7 @@ void WebSockets::handleWebsocketCb(WSclient_t * client) {
         buffer += 8;
     }
 
-    ESP_LOGI("WS_CORE", "[WS][%d][handleWebsocket] ------- read massage frame -------\n", client->num);
-    ESP_LOGI("WS_CORE", "[WS][%d][handleWebsocket] fin: %u rsv1: %u rsv2: %u rsv3 %u  opCode: %u\n", client->num, header->fin, header->rsv1, header->rsv2, header->rsv3, header->opCode);
-    ESP_LOGI("WS_CORE", "[WS][%d][handleWebsocket] mask: %u payloadLen: %u\n", client->num, header->mask, header->payloadLen);
+    ESP_LOGI("WS_CORE", "[WS][handleWebsocket] payloadLen: %u\n -- limit: %u", header->payloadLen, WEBSOCKETS_MAX_DATA_SIZE);
 
     if(header->payloadLen > WEBSOCKETS_MAX_DATA_SIZE) {
         ESP_LOGE("WS_CORE", "[WS][%d][handleWebsocket] payload too big! (%u)\n", client->num, header->payloadLen);
