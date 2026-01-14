@@ -431,10 +431,14 @@ void WebSockets::handleWebsocketCb(WSclient_t * client) {
         buffer += 8;
     }
 
+#ifdef WS_DEBUG
     ESP_LOGI("WS_CORE", "[WS][handleWebsocket] payloadLen: %u\n -- limit: %u", header->payloadLen, WEBSOCKETS_MAX_DATA_SIZE);
+#endif
 
     if(header->payloadLen > WEBSOCKETS_MAX_DATA_SIZE) {
+#ifdef WS_DEBUG
         ESP_LOGE("WS_CORE", "[WS][%d][handleWebsocket] payload too big! (%u)\n", client->num, header->payloadLen);
+#endif
         clientDisconnect(client, 1009);
         return;
     }
